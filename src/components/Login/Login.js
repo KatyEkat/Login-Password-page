@@ -48,19 +48,20 @@ const Login = (props) => {
   //   })
   // }, [enteredPassword])
 
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log('Checking form validity!')
-      setFormIsValid(
-        emailState.isValid && passwordState.isValid
-      );
-    }, 500)
+      console.log("Checking form validity!");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
 
-    return(() => {
-      console.log('clean up')
-      clearTimeout(identifier)
-    })
-  }, [emailState, passwordState]);
+    return () => {
+      console.log("clean up");
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
@@ -71,7 +72,7 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
-    dispatchPassword({type: "USER_INPUT", val: event.target.value})
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
 
     // setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
@@ -81,7 +82,7 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    dispatchPassword({type: "INPUT_BLUR"})
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const submitHandler = (event) => {
